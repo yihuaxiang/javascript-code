@@ -15,3 +15,4 @@ http://apress.com/book/view/159059908x
 
 Questions and corrections can be sent to ross@jsdesignpatterns.com and 
 dustin@jsdesignpatterns.com.
+right
