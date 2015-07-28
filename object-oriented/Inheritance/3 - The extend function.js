@@ -1,10 +1,12 @@
 /* Extend function. */
 
 function extend(subClass, superClass) {
-  var F = function() {};
-  F.prototype = superClass.prototype;
-  subClass.prototype = new F();
-  subClass.prototype.constructor = subClass;
+  // var F = function() {};
+  // F.prototype = superClass.prototype;
+  // subClass.prototype = new F();
+  // subClass.prototype.constructor = subClass;
+  subClass.prototype=superClass.prototype;
+  subClass.constructor=subClass;
 }
 
 
@@ -21,7 +23,7 @@ Person.prototype.getName = function() {
 /* Class Author. */
 
 function Author(name, books) {
-  Person.call(this, name);
+  Person.call(this, name);//Author继承了Person的属性 相当于执行了this.name=name
   this.books = books;
 }
 extend(Author, Person);
@@ -31,36 +33,8 @@ Author.prototype.getBooks = function() {
 };
 
 
-
-/* Extend function, improved. */
-
-function extend(subClass, superClass) {
-  var F = function() {};
-  F.prototype = superClass.prototype;
-  subClass.prototype = new F();
-  subClass.prototype.constructor = subClass;
-
-  // The second way, to add the below code
-  subClass.superclass = superClass.prototype;
-  if(superClass.prototype.constructor == Object.prototype.constructor) {
-    superClass.prototype.constructor = superClass;
-  }
-}
+var fdd=new Author("fdd","javascript");
+console.log(fdd.getName());
+console.log(fdd.getBooks());
 
 
-/* Class Author. */
-
-function Author(name, books) {
-  Author.superclass.constructor.call(this, name);
-  this.books = books;
-}
-extend(Author, Person);
-
-Author.prototype.getBooks = function() {
-  return this.books;
-};
-
-Author.prototype.getName = function() {
-  var name = Author.superclass.getName.call(this);  // The second way can access superClass method like this
-  return name + ', Author of ' + this.getBooks().join(', ');
-};
